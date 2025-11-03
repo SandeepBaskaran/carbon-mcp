@@ -1,0 +1,47 @@
+{
+  "name": "tokenConverter",
+  "description": "Convert design tokens (JSON) to CSS variables, SCSS maps, and JS tokens.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "input_path": { 
+        "type": "string",
+        "description": "Path to tokens JSON file"
+      },
+      "outputs": { 
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["css_vars", "scss_map", "js_tokens"]
+        },
+        "description": "Output formats to generate"
+      },
+      "output_dir": { 
+        "type": "string",
+        "default": "tokens",
+        "description": "Directory for output files"
+      },
+      "dry_run": { 
+        "type": "boolean", 
+        "default": true,
+        "description": "If true, show output without writing files"
+      },
+      "confirm_destructive": { 
+        "type": "boolean", 
+        "default": false,
+        "description": "Must be true to write files"
+      }
+    },
+    "required": ["input_path", "outputs"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "files": { "type": "array" },
+      "logs": { "type": "array" },
+      "dry_run": { "type": "boolean" },
+      "trace_id": { "type": "string" }
+    }
+  }
+}
+

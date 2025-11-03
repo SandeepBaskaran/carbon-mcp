@@ -1,0 +1,22 @@
+{
+  "indexed_at": "2025-11-02T17:46:05.667Z",
+  "document_count": 4,
+  "documents": [
+    {
+      "title": "button",
+      "file": "button.md"
+    },
+    {
+      "title": "accessibility",
+      "file": "accessibility.md"
+    },
+    {
+      "title": "tokens",
+      "file": "tokens.md"
+    },
+    {
+      "title": "themes",
+      "file": "themes.md"
+    }
+  ]
+}

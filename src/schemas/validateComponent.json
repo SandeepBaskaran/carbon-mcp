@@ -1,0 +1,31 @@
+{
+  "name": "validateComponent",
+  "description": "Lint and validate Carbon component usage against patterns (props, accessibility, tokens).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "file_path": { 
+        "type": "string",
+        "description": "Path to component file to validate"
+      },
+      "rules": { 
+        "type": "array",
+        "items": { "type": "string" },
+        "default": ["props", "accessibility", "tokens"],
+        "description": "Validation rules to apply"
+      }
+    },
+    "required": ["file_path"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "valid": { "type": "boolean" },
+      "errors": { "type": "array" },
+      "warnings": { "type": "array" },
+      "logs": { "type": "array" },
+      "trace_id": { "type": "string" }
+    }
+  }
+}
+

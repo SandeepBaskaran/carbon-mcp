@@ -1,0 +1,72 @@
+{
+  "name": "generateComponent",
+  "description": "Generates a Carbon React component (TSX) + Storybook story + test. Returns code artifacts as files.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "component_name": { 
+        "type": "string",
+        "description": "Name of the component to generate (e.g., 'PrimaryCard')"
+      },
+      "variant": { 
+        "type": "string",
+        "description": "Component variant or type"
+      },
+      "props": { 
+        "type": "object",
+        "description": "Additional props and their types"
+      },
+      "carbon_version": { 
+        "type": "string",
+        "description": "Carbon version to use (default: latest)"
+      },
+      "output_format": { 
+        "type": "string", 
+        "enum": ["files", "zip", "stdout"], 
+        "default": "files",
+        "description": "Output format for generated files"
+      },
+      "target_path": { 
+        "type": "string", 
+        "description": "Relative path in repo where files will be placed"
+      },
+      "dry_run": { 
+        "type": "boolean", 
+        "default": true,
+        "description": "If true, show what would be generated without writing files"
+      },
+      "confirm_destructive": { 
+        "type": "boolean", 
+        "default": false,
+        "description": "Must be true to write files to disk"
+      },
+      "explain": { 
+        "type": "boolean", 
+        "default": false,
+        "description": "Provide step-by-step explanation of generation"
+      }
+    },
+    "required": ["component_name"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "files": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "path": { "type": "string" },
+            "content": { "type": "string" }
+          }
+        }
+      },
+      "logs": { "type": "array" },
+      "changed_files": { "type": "array", "items": { "type": "string" } },
+      "dry_run": { "type": "boolean" },
+      "trace_id": { "type": "string" },
+      "explanation": { "type": "string" }
+    }
+  }
+}
+

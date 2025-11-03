@@ -1,0 +1,43 @@
+{
+  "name": "codemodReplace",
+  "description": "Apply codemod to replace non-Carbon component with Carbon equivalents. Dry-run default.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "codemod_name": { 
+        "type": "string",
+        "description": "Name of the codemod to apply (e.g., 'btn-old-to-carbon')"
+      },
+      "files_glob": { 
+        "type": "string",
+        "description": "Glob pattern for files to transform (e.g., 'src/**/*.{tsx,jsx}')"
+      },
+      "rules": { 
+        "type": "object",
+        "description": "Custom rules for the codemod"
+      },
+      "dry_run": { 
+        "type": "boolean", 
+        "default": true,
+        "description": "If true, show patches without applying changes"
+      },
+      "confirm_destructive": { 
+        "type": "boolean", 
+        "default": false,
+        "description": "Must be true to apply changes to disk"
+      }
+    },
+    "required": ["codemod_name", "files_glob"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "dry_run_result": { "type": "string" },
+      "patches": { "type": "array" },
+      "changed_files": { "type": "array" },
+      "logs": { "type": "array" },
+      "trace_id": { "type": "string" }
+    }
+  }
+}
+

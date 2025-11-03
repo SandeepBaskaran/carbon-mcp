@@ -1,0 +1,44 @@
+{
+  "name": "searchDocs",
+  "description": "Search local Carbon docs index; returns top-k results with source, snippet, and score.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": { 
+        "type": "string",
+        "description": "Search query for Carbon documentation"
+      },
+      "k": { 
+        "type": "integer", 
+        "default": 5,
+        "description": "Number of results to return"
+      },
+      "namespace": { 
+        "type": "string", 
+        "default": "carbon-docs",
+        "description": "Docs namespace to search"
+      }
+    },
+    "required": ["query"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "path": { "type": "string" },
+            "snippet": { "type": "string" },
+            "score": { "type": "number" }
+          }
+        }
+      },
+      "logs": { "type": "array" },
+      "trace_id": { "type": "string" }
+    }
+  }
+}
+
