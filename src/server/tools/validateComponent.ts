@@ -52,7 +52,8 @@ export async function validateComponent(input: ValidateComponentInput): Promise<
   try {
     const fullPath = path.resolve(process.cwd(), input.file_path);
     content = fs.readFileSync(fullPath, 'utf8');
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return {
       valid: false,
       errors,
@@ -60,7 +61,7 @@ export async function validateComponent(input: ValidateComponentInput): Promise<
       logs,
       trace_id,
       error_code: 'read_failed',
-      message: `Failed to read file: ${error.message}`,
+      message: `Failed to read file: ${errorMessage}`,
       hint: 'Ensure the file path is correct'
     };
   }

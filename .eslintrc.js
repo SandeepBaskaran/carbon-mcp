@@ -14,6 +14,14 @@ module.exports = {
     node: true,
     es6: true,
   },
+  ignorePatterns: [
+    'dist/**',
+    'demo/**',
+    '**/*.test.ts',
+    '**/*.test.tsx',
+    'scripts/**',
+    'node_modules/**',
+  ],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',

@@ -43,19 +43,21 @@ export async function tokenConverter(input: TokenConverterInput): Promise<TokenC
   logs.push(logger.info(`Converting tokens from ${input.input_path}`));
 
   // Read tokens JSON
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let tokensData: any;
   try {
     const fullPath = path.resolve(process.cwd(), input.input_path);
     const content = fs.readFileSync(fullPath, 'utf8');
     tokensData = JSON.parse(content);
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return {
       files: [],
       logs,
       dry_run: true,
       trace_id,
       error_code: 'read_failed',
-      message: `Failed to read tokens file: ${error.message}`,
+      message: `Failed to read tokens file: ${errorMessage}`,
       hint: 'Ensure the file path is correct and the file contains valid JSON'
     };
   }

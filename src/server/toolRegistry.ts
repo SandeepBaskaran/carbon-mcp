@@ -13,6 +13,7 @@ import searchDocsSchema from '../schemas/searchDocs.json';
 import tokenConverterSchema from '../schemas/tokenConverter.json';
 import validateComponentSchema from '../schemas/validateComponent.json';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Tool {
   handler: (input: any) => Promise<any>;
   schema: any;
@@ -89,4 +90,5 @@ export function getToolList(): Array<{ name: string; description: string; schema
     schema: tool.schema
   }));
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 

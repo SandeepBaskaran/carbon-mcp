@@ -1,9 +1,10 @@
 // src/lib/logger.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface LogEntry {
   level: 'info' | 'warn' | 'error' | 'debug';
   message: string;
   ts_iso: string;
-  meta?: Record<string, any>;
+  meta?: Record<string, unknown>;
 }
 
 class Logger {
@@ -25,7 +26,7 @@ class Logger {
     return result;
   }
 
-  private log(level: LogEntry['level'], message: string, meta?: Record<string, any>): LogEntry {
+  private log(level: LogEntry['level'], message: string, meta?: Record<string, unknown>): LogEntry {
     const entry: LogEntry = {
       level,
       message,
@@ -34,30 +35,32 @@ class Logger {
     };
     
     // Output as JSON
+    // eslint-disable-next-line no-console
     console.log(JSON.stringify(entry));
     return entry;
   }
 
-  info(message: string, meta?: Record<string, any>): LogEntry {
+  info(message: string, meta?: Record<string, unknown>): LogEntry {
     return this.log('info', message, meta);
   }
 
-  warn(message: string, meta?: Record<string, any>): LogEntry {
+  warn(message: string, meta?: Record<string, unknown>): LogEntry {
     return this.log('warn', message, meta);
   }
 
-  error(message: string, meta?: Record<string, any>): LogEntry {
+  error(message: string, meta?: Record<string, unknown>): LogEntry {
     return this.log('error', message, meta);
   }
 
-  debug(message: string, meta?: Record<string, any>): LogEntry {
+  debug(message: string, meta?: Record<string, unknown>): LogEntry {
     return this.log('debug', message, meta);
   }
 
-  json(level: LogEntry['level'], message: string, meta?: Record<string, any>): LogEntry {
+  json(level: LogEntry['level'], message: string, meta?: Record<string, unknown>): LogEntry {
     return this.log(level, message, meta);
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export default new Logger();
 

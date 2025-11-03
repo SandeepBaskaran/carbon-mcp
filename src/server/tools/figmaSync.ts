@@ -11,6 +11,7 @@ export interface FigmaSyncInput {
 
 export interface FigmaSyncOutput {
   status: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tokens?: any;
   logs: LogEntry[];
   trace_id: string;

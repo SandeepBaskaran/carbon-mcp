@@ -52,13 +52,14 @@ export function safeWrite(
     writeFileSync(fullPath, content, { encoding: 'utf8' });
     logger.info(`Wrote file: ${filePath}`);
     return { success: true, path: filePath };
-  } catch (error: any) {
-    logger.error(`Failed to write ${filePath}`, { error: error.message });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error(`Failed to write ${filePath}`, { error: errorMessage });
     return {
       success: false,
       error: {
         error_code: 'write_failed',
-        message: error.message,
+        message: errorMessage,
         hint: 'Check file permissions and path validity'
       }
     };

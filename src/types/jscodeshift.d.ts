@@ -1,4 +1,5 @@
 // Type declarations for jscodeshift
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module 'jscodeshift' {
   interface API {
     (source: string): Collection;
@@ -23,4 +24,5 @@ declare module 'jscodeshift' {
   const jscodeshift: API;
   export default jscodeshift;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 

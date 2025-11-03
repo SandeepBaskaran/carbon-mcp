@@ -4,7 +4,9 @@ import fs from 'fs';
 import glob from 'glob';
 
 jest.mock('fs');
-jest.mock('glob');
+jest.mock('glob', () => ({
+  sync: jest.fn()
+}));
 
 describe('codemodReplace', () => {
   beforeEach(() => {
@@ -22,7 +24,7 @@ describe('codemodReplace', () => {
   });
 
   it('should run in dry-run mode by default', async () => {
-    (glob.sync as jest.Mock).mockReturnValue([]);
+    (glob.sync as unknown as jest.Mock).mockReturnValue([]);
     
     const result = await codemodReplace({
       codemod_name: 'btn-old-to-carbon',
@@ -35,7 +37,7 @@ describe('codemodReplace', () => {
   });
 
   it('should find files matching glob pattern', async () => {
-    (glob.sync as jest.Mock).mockReturnValue([
+    (glob.sync as unknown as jest.Mock).mockReturnValue([
       '/project/src/page1.tsx',
       '/project/src/page2.tsx'
     ]);
@@ -51,7 +53,7 @@ describe('codemodReplace', () => {
   });
 
   it('should require confirm_destructive for actual changes', async () => {
-    (glob.sync as jest.Mock).mockReturnValue([]);
+    (glob.sync as unknown as jest.Mock).mockReturnValue([]);
     
     const result = await codemodReplace({
       codemod_name: 'btn-old-to-carbon',
@@ -64,7 +66,7 @@ describe('codemodReplace', () => {
   });
 
   it('should include trace_id and logs', async () => {
-    (glob.sync as jest.Mock).mockReturnValue([]);
+    (glob.sync as unknown as jest.Mock).mockReturnValue([]);
     
     const result = await codemodReplace({
       codemod_name: 'btn-old-to-carbon',

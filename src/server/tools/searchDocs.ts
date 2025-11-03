@@ -151,8 +151,9 @@ export async function searchDocs(input: SearchDocsInput): Promise<SearchDocsOutp
     };
     
     searchDocs(docsPath);
-  } catch (error: any) {
-    logs.push(logger.error('Failed to search docs', { error: error.message }));
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logs.push(logger.error('Failed to search docs', { error: errorMessage }));
   }
   
   // Sort by score and limit to k results

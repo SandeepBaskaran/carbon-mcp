@@ -78,19 +78,25 @@ app.post('/tool/:name', async (req, res) => {
     
     logger.info(`Tool completed: ${name}`, { trace_id: result.trace_id });
     return res.json(result);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    logger.error('Tool execution error', { name, error: err.message, stack: err.stack });
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    const errorStack = err instanceof Error ? err.stack : undefined;
+    logger.error('Tool execution error', { name, error: errorMessage, stack: errorStack });
     return res.status(500).json({ 
       error: 'tool_error', 
-      message: err.message,
+      message: errorMessage,
       trace_id: `error-${Date.now()}`
     });
   }
 });
 
 // Error handler
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  logger.error('Unhandled error', { error: err.message, stack: err.stack });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const errorMessage = err instanceof Error ? err.message : String(err);
+  const errorStack = err instanceof Error ? err.stack : undefined;
+  logger.error('Unhandled error', { error: errorMessage, stack: errorStack });
   res.status(500).json({ 
     error: 'internal_error', 
     message: 'An unexpected error occurred' 
@@ -101,25 +107,40 @@ const PORT = process.env.PORT || 4000;
 
 const server = app.listen(PORT, () => {
   logger.info(`carbon-mcp server started`, { port: PORT });
+  // eslint-disable-next-line no-console
   console.log(`\n🚀 Carbon MCP Server running on http://localhost:${PORT}`);
+  // eslint-disable-next-line no-console
   console.log(`📚 Available endpoints:`);
+  // eslint-disable-next-line no-console
   console.log(`   GET  /health - Health check`);
+  // eslint-disable-next-line no-console
   console.log(`   GET  /tools - List all available tools`);
+  // eslint-disable-next-line no-console
   console.log(`   GET  /tool/:name/schema - Get tool schema`);
+  // eslint-disable-next-line no-console
   console.log(`   POST /tool/:name - Execute tool`);
+  // eslint-disable-next-line no-console
   console.log(`\n💡 Available tools: ${Object.keys(tools).join(', ')}`);
+  // eslint-disable-next-line no-console
   console.log(`\n📖 Documentation: See README.md\n`);
 });
 
 // Handle port already in use error gracefully
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 server.on('error', (err: any) => {
   if (err.code === 'EADDRINUSE') {
     logger.error(`Port ${PORT} is already in use`, { port: PORT });
+    // eslint-disable-next-line no-console
     console.error(`\n❌ Error: Port ${PORT} is already in use`);
+    // eslint-disable-next-line no-console
     console.error(`\n💡 Solutions:`);
+    // eslint-disable-next-line no-console
     console.error(`   1. Kill the process using port ${PORT}:`);
+    // eslint-disable-next-line no-console
     console.error(`      lsof -ti:${PORT} | xargs kill -9`);
+    // eslint-disable-next-line no-console
     console.error(`   2. Use a different port:`);
+    // eslint-disable-next-line no-console
     console.error(`      PORT=4001 npm run dev`);
     process.exit(1);
   } else {

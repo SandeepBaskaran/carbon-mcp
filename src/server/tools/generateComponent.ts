@@ -2,12 +2,11 @@
 import { renderInlineTemplate } from '../../lib/templateUtils';
 import { safeWrite } from '../../lib/fileUtils';
 import logger, { LogEntry } from '../../lib/logger';
-import path from 'path';
 
 export interface GenerateComponentInput {
   component_name: string;
   variant?: string;
-  props?: Record<string, any>;
+  props?: Record<string, unknown>;
   carbon_version?: string;
   output_format?: 'files' | 'zip' | 'stdout';
   target_path?: string;

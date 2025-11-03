@@ -3,13 +3,13 @@ import glob from 'glob';
 import fs from 'fs';
 import path from 'path';
 import { applyJSCodemod } from '../../lib/codemodUtils';
-import { generateUnifiedDiff, applyPatchFromUnifiedDiff } from '../../lib/diffUtils';
+import { generateUnifiedDiff } from '../../lib/diffUtils';
 import logger, { LogEntry } from '../../lib/logger';
 
 export interface CodemodReplaceInput {
   codemod_name: string;
   files_glob: string;
-  rules?: any;
+  rules?: Record<string, unknown>;
   dry_run?: boolean;
   confirm_destructive?: boolean;
 }
@@ -67,8 +67,9 @@ export async function codemodReplace(input: CodemodReplaceInput): Promise<Codemo
         patches.push({ file: relativePath, patch });
         transformedContent.set(filePath, transformed);
       }
-    } catch (error: any) {
-      logs.push(logger.error(`Failed to process ${filePath}`, { error: error.message }));
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      logs.push(logger.error(`Failed to process ${filePath}`, { error: errorMessage }));
     }
   }
 
@@ -106,8 +107,9 @@ export async function codemodReplace(input: CodemodReplaceInput): Promise<Codemo
       const relativePath = path.relative(process.cwd(), filePath);
       changed.push(relativePath);
       logs.push(logger.info(`Applied patch to ${relativePath}`));
-    } catch (error: any) {
-      logs.push(logger.error(`Failed to write ${filePath}`, { error: error.message }));
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      logs.push(logger.error(`Failed to write ${filePath}`, { error: errorMessage }));
     }
   }
 

@@ -36,9 +36,11 @@ export function tokensToJS(tokens: Token[]): string {
   return lines.join('\n');
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function parseTokensJSON(json: any): Token[] {
   const tokens: Token[] = [];
   
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function traverse(obj: any, prefix: string = '') {
     for (const key in obj) {
       const value = obj[key];

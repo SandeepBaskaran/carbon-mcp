@@ -1,4 +1,5 @@
 // src/lib/codemodUtils.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import jscodeshift from 'jscodeshift';
 
 export interface CodemodRule {
@@ -10,7 +11,7 @@ export interface CodemodRule {
 export function applyJSCodemod(
   source: string,
   codemodName: string,
-  rules: Record<string, any>
+  rules: Record<string, unknown>
 ): string {
   const j = jscodeshift;
   const root = j(source);
@@ -89,12 +90,12 @@ function applyButtonCarbonCodemod(root: any, j: any): string {
   return modified ? root.toSource() : root.toSource();
 }
 
-function applyClassToStyleCodemod(root: any, j: any, rules: Record<string, any>): string {
+function applyClassToStyleCodemod(root: any, _j: any, _rules: Record<string, unknown>): string {
   // Placeholder for class-to-style codemod
   return root.toSource();
 }
 
-function applyGenericCodemod(root: any, j: any, rules: Record<string, any>): string {
+function applyGenericCodemod(root: any, j: any, rules: Record<string, unknown>): string {
   // Generic codemod based on rules
   if (rules.replaceJSX) {
     for (const [from, to] of Object.entries(rules.replaceJSX)) {
