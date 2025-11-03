@@ -2,6 +2,18 @@
 
 Local MCP (Model Context Protocol) server for the Carbon Design System — Advanced MVP for internal demos and production use.
 
+## 🚧 Status: Proposal Submitted to Carbon
+
+This project is a **proposal** submitted to the [Carbon Design System](https://carbondesignsystem.com/) repository.
+
+- **Issue**: [#20855](https://github.com/carbon-design-system/carbon/issues/20855)
+- **Status**: Awaiting maintainer feedback
+- **Proposed**: Add to Carbon monorepo or create official `carbon-design-system/carbon-mcp` repository
+
+The Carbon team is reviewing this proposal. Once feedback is received, the code will be adapted accordingly.
+
+---
+
 ## 🚀 Quickstart
 
 1. **Clone repo**
