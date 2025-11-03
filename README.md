@@ -6,7 +6,7 @@ Local MCP (Model Context Protocol) server for the Carbon Design System — Advan
 
 1. **Clone repo**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/SandeepBaskaran/carbon-mcp.git
    cd carbon-mcp
    ```
 
